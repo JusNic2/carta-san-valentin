@@ -2,168 +2,194 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<title>Para Bárbara 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para ti ❤️</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff4d6d">
 
 <style>
-body{
-  margin:0;
-  min-height:100vh;
-  background:linear-gradient(135deg,#ff4d6d,#ff8fa3);
-  font-family:'Segoe UI',sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #ff9ecf, #ff5fa2);
+  color: #fff;
+  text-align: center;
 }
 
-.card{
-  position:relative;
-  z-index:2;
-  width:90%;
-  max-width:360px;
-  background:rgba(255,255,255,.95);
-  border-radius:22px;
-  padding:25px;
-  text-align:center;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
-  animation:fadeIn 1.3s ease;
+/* CARTA */
+.carta {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
 
-h1{color:#ff4d6d}
-p{color:#333;font-size:15px}
-
-button{
-  margin-top:15px;
-  padding:12px 24px;
-  border:none;
-  border-radius:20px;
-  background:#ff4d6d;
-  color:#fff;
-  font-size:16px;
+.contenido-carta {
+  background: #fff;
+  color: #333;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 320px;
+  animation: aparecer 1s;
 }
 
-.hidden{display:none}
-
-/* Carrusel */
-.carousel{
-  margin-top:15px;
-  position:relative;
-  width:100%;
-  height:200px;
-  overflow:hidden;
-  border-radius:15px;
+.foto-carta {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
 }
 
-.carousel img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transition:opacity 1s;
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #ff5fa2;
+  color: white;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-.carousel img.active{opacity:1}
+/* CONTENIDO */
+#contenido {
+  display: none;
+  padding: 20px;
+}
 
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(.9)}
-  to{opacity:1;transform:scale(1)}
+.carrusel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.carrusel img {
+  width: 260px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.flecha {
+  background: none;
+  border: none;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  padding: 0 15px;
+}
+
+.texto {
+  max-width: 360px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+.final {
+  margin-top: 40px;
+  padding: 20px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+}
+
+.firma {
+  font-style: italic;
+  margin-top: 10px;
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="canvas"></canvas>
+<!-- MÚSICA -->
+<audio id="musica" loop>
+  <source src="barbara.mp3" type="audio/mpeg">
+</audio>
 
-<div class="card">
-  <h1>Para ti, Bárbara ❤️</h1>
-  <p>Aunque estemos lejos por ahora, mi corazón siempre va contigo.</p>
-
-  <button onclick="abrirCarta()">Abrir carta 💌</button>
-
-  <div id="contenido" class="hidden">
-    <p id="texto"></p>
-
-    <div class="carousel">
-      <img src="foto1.jpg" class="active">
-      <img src="foto2.jpg">
-      <img src="foto3.jpg">
-    </div>
+<!-- CARTA -->
+<div class="carta" id="carta">
+  <div class="contenido-carta">
+    <img src="foto1.jpg" class="foto-carta">
+    <h2>Para ti, Barbarita 💖</h2>
+    <p>
+      No es una página cualquiera mi niña.  
+      Esto esun pequeño lugar donde quise guardar  
+      lo que muchas veces no sé decir con palabras.
+    </p>
+    <p>
+      Gracias por existir, por tu sonrisa, por tus abrazos, por tus besos, por todo 
+      y por hacer especiales incluso los días simples.
+    </p>
+    <button onclick="abrir()">Abrir 💌</button>
   </div>
 </div>
 
-<audio id="musica" src="barbara.mp3" loop></audio>
+<!-- CONTENIDO -->
+<div id="contenido">
+  <h2>Momentos que me recuerdan a ti que aunque sean pocos espero seguir haciendo más recuerdos contigo bobita 🌷</h2>
+
+  <div class="carrusel">
+    <button class="flecha" onclick="prev()">‹</button>
+    <img id="imagen" src="foto1.jpg">
+    <button class="flecha" onclick="next()">›</button>
+  </div>
+
+  <p class="texto">
+    Cada imagen es un recuerdo,  
+    cada recuerdo es una emoción,  
+    y cada emoción tiene algo en común: tu mi niña 💗.
+  </p>
+
+  <div class="final">
+    <h2>Sorpresa 👻</h2>
+    <p>
+      Tal vez el mundo no se detenga,  
+      pero contigo todo se siente más bonito.  
+      Y si algún día dudas, recuerda esto loquita:
+    </p>
+    <p><strong>Eres especial y mucho más de lo que imaginas 💕</strong></p>
+    <p class="firma">— Alguien que te piensa más de lo que dice ssisis</p>
+  </div>
+</div>
 
 <script>
-/* Carta */
-function abrirCarta(){
-  document.getElementById("contenido").classList.remove("hidden");
-  document.getElementById("musica").play();
-  escribirTexto();
+const imagenes = ["foto1.jpg", "foto2.jpg", "foto3.jpg"];
+let i = 0;
+
+const img = document.getElementById("imagen");
+const musica = document.getElementById("musica");
+
+musica.volume = 0.25; // volumen suave
+
+function abrir() {
+  document.getElementById("carta").style.display = "none";
+  document.getElementById("contenido").style.display = "block";
+  musica.play();
 }
 
-/* Máquina de escribir */
-const mensaje = "Eres mi lugar seguro incluso a la distancia. Gracias por existir, mi niña. Te amo muchísimo 💕";
-let i=0;
-function escribirTexto(){
-  if(i<mensaje.length){
-    document.getElementById("texto").innerHTML += mensaje.charAt(i);
-    i++;
-    setTimeout(escribirTexto,50);
-  }
+function next() {
+  i = (i + 1) % imagenes.length;
+  img.src = imagenes[i];
 }
 
-/* Carrusel */
-const imgs=document.querySelectorAll(".carousel img");
-let idx=0;
-setInterval(()=>{
-  imgs[idx].classList.remove("active");
-  idx=(idx+1)%imgs.length;
-  imgs[idx].classList.add("active");
-},3000);
-
-/* Corazones */
-const c=document.getElementById("canvas");
-const ctx=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
-let corazones=[];
-setInterval(()=>corazones.push({
-  x:Math.random()*c.width,
-  y:c.height+20,
-  s:Math.random()*20+10,
-  v:Math.random()*1+0.5
-}),300);
-
-function animar(){
-  ctx.clearRect(0,0,c.width,c.height);
-  corazones.forEach((h,i)=>{
-    ctx.font=h.s+"px Arial";
-    ctx.fillText("❤️",h.x,h.y);
-    h.y-=h.v;
-    if(h.y<-30)corazones.splice(i,1);
-  });
-  requestAnimationFrame(animar);
+function prev() {
+  i = (i - 1 + imagenes.length) % imagenes.length;
+  img.src = imagenes[i];
 }
-animar();
 
-/* PWA */
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("sw.js");
-}
+// autoplay
+setInterval(next, 4000);
 </script>
 
 </body>
