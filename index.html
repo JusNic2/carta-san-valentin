@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti, Barbara ❤️</title>
+
+<link rel="manifest" href="manifest.json">
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card {
+    position: relative;
+    background: rgba(255,255,255,0.96);
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 92%;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    z-index: 2;
+}
+
+.portada img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 20px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e63950;
+}
+
+#contenido {
+    display: none;
+}
+
+#mensaje {
+    margin-top: 15px;
+    white-space: pre-line;
+    color: #333;
+}
+
+/* 🎠 CARRUSEL */
+.carrusel {
+    margin-top: 15px;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.carrusel img {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    width: 85%;
+    border-radius: 15px;
+}
+
+/* Quitar barra fea en móvil */
+.carrusel::-webkit-scrollbar {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+    <!-- 🟣 PORTADA -->
+    <div class="portada" id="portada">
+        <h2>Para ti, Barbara ❤️</h2>
+        <img src="fotos/foto1.jpg" alt="Nosotros">
+        <p>Aunque estemos lejos, mi corazón siempre va contigo.</p>
+        <button onclick="abrirCarta()">Abrir carta 💌</button>
+    </div>
+
+    <!-- 💌 CONTENIDO -->
+    <div id="contenido">
+        <p id="mensaje"></p>
+
+        <div class="carrusel">
+            <img src="fotos/foto1.jpg">
+            <img src="fotos/foto2.jpg">
+            <img src="fotos/foto3.jpg">
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* ✍️ MÁQUINA DE ESCRIBIR */
+const texto =
+`Eres mi lugar seguro, incluso a la distancia.
+Siempre deseo que podamos estar juntos todo el rato.
+Gracias por existir y por hacerme sentir tan amado, mi niña 💗
+Te amo muchísimo 💕`;
+
+let i = 0;
+
+function escribir() {
+    if (i < texto.length) {
+        document.getElementById("mensaje").innerHTML += texto.charAt(i);
+        i++;
+        setTimeout(escribir, 45);
+    }
+}
+
+function abrirCarta() {
+    document.getElementById("portada").style.display = "none";
+    document.getElementById("contenido").style.display = "block";
+    document.getElementById("musica").play();
+    escribir();
+}
+
+/* ❤️ CORAZONES */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let corazones = [];
+
+function crearCorazon() {
+    corazones.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height + 20,
+        size: Math.random() * 20 + 10,
+        speed: Math.random() + 0.5
+    });
+}
+
+function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    corazones.forEach((c, i) => {
+        ctx.font = c.size + "px Arial";
+        ctx.fillText("❤️", c.x, c.y);
+        c.y -= c.speed;
+        if (c.y < -30) corazones.splice(i, 1);
+    });
+    requestAnimationFrame(animar);
+}
+
+setInterval(crearCorazon, 300);
+animar();
+</script>
+
+</body>
+</html>
+    ctx.fillText("❤️", c.x, c.y);
+            c.y -= c.speed;
+
+            if (c.y < -30) corazones.splice(i, 1);
+        });
+
+        requestAnimationFrame(dibujar);
+    }
+
+    setInterval(crearCorazon, 300);
+    dibujar();
+</script>
+
+</body>
+</html>
